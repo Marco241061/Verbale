@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modulo Troupe ENG</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#4CAF50">
+    <link rel="apple-touch-icon" href="icon-192x192.png">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .modulo {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #000;
+        }
+        .campo {
+            margin: 10px 0;
+        }
+        .linea-punti {
+            border-bottom: 1px dotted #000;
+            display: inline-block;
+            min-width: 200px;
+        }
+        .checkbox-group {
+            margin: 15px 0;
+        }
+        .firma {
+            margin-top: 20px;
+            border-top: 1px solid #000;
+            width: 200px;
+        }
+        .nota {
+            font-size: 0.8em;
+            font-style: italic;
+        }
+        .campo input {
+            border: none;
+            border-bottom: 1px dotted #000;
+            min-width: 200px;
+            padding: 4px;
+            margin-left: 5px;
+            font-family: Arial, sans-serif;
+        }
+        .campo input:focus {
+            outline: none;
+            border-bottom: 2px solid #4CAF50;
+        }
+        .campo select {
+            border: none;
+            border-bottom: 1px dotted #000;
+            min-width: 200px;
+            padding: 4px;
+            margin-left: 5px;
+            font-family: Arial, sans-serif;
+            background-color: transparent;
+        }
+        .campo select:focus {
+            outline: none;
+            border-bottom: 2px solid #4CAF50;
+        }
+        @media print {
+            body {
+                padding: 0;
+            }
+            .modulo {
+                border: none;
+            }
+            button, 
+            input[type="email"],
+            #passwordInput,
+            #firmaSection button {
+                display: none !important;
+            }
+            input {
+                border: none !important;
+            }
+            select {
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+                border: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="modulo">
+        <h1 style="text-align: center; margin-bottom: 20px;">VERBALE</h1>
+        
+        <h2>TESTATA: <input type="text"></h2>
+
+        <div class="campo">
+            Operatore Economico: <input type="text">
+        </div>
+
+        <div class="campo">
+            N.Rich: <input type="text">
+        </div>
+
+        <div class="campo">
+            Convenz: <input type="text">
+        </div>
+
+        <div class="campo">
+            DATA ATTIVAZIONE TROUPE ENG: <input type="text">
+        </div>
+
+        <div class="campo">
+            LUOGO: <input type="text">
+            ORARIO INIZIO: <input type="text">
+            ORARIO FINE: <input type="text">
+        </div>
+
+        <h3>Nominativo e Firma</h3>
+        <div class="campo">
+            Operatore Ripresa: 
+            <select>
+                <option value="">Seleziona un operatore</option>
+                <option value="1">1 ROBERTO AMODIO</option>
+                <option value="2">2 GIUNLUIGI ZACCARIA</option>
+                <option value="4">4 MARCO STIVALETTA</option>
+            </select>
+
+        </div>
+        <div class="campo">
+            Specializzato di Ripresa: <input type="text">
+        </div>
+        <div class="campo">
+            Terzo assistente: <input type="text">
+        </div>
+
+        <div class="checkbox-group">
+            <h3>Tipologia Attivazione:</h3>
+            <input type="checkbox" id="tipo1" name="tipo1">
+            <label for="tipo1">Tipo 1</label>
+            <input type="checkbox" id="tipo2" name="tipo2">
+            <label for="tipo2">Tipo 2</label>
+            <input type="checkbox" id="ridotto" name="ridotto">
+            <label for="ridotto">Ridotto (1/2 troupe)</label>
+        </div>
+
+        <div class="campo">
+            <h3>Tipologie Troupe ENG</h3>
+            <p>Configurazione standard</p>
+            <ul>
+                <li>Tipo 1 Troupe Standard Xdcam (disco)</li>
+                <li>Tipo 2 Troupe Camcorder compatto (scheda)</li>
+            </ul>
+        </div>
+
+        <div class="firma">
+            Firma Operatore
+            <div id="firmaSection">
+                <input type="password" id="passwordInput" placeholder="Inserisci la password">
+                <button onclick="verificaPassword()">Verifica</button>
+                <input type="text" id="firmaInput" placeholder="Inserisci la firma" style="display: none;">
+            </div>
+            <p class="nota">* Consapevole della responsabilità e delle conseguenze stabilite dalla Legge in caso di false attestazioni</p>
+        </div>
+
+        <h3>Estensione del servizio, figure, servizi e dotazioni aggiuntive</h3>
+        <div class="campo">
+            Estensione del servizio n.ore: <input type="text">
+        </div>
+        <div class="campo">
+            Sistema di Trasmissione HSPA/LTE: <input type="text">
+        </div>
+        <div class="campo">
+            Dotazioni extra: <input type="text">
+        </div>
+        <div class="campo">
+            Servizi extra: <input type="text">
+        </div>
+        <div class="campo">
+            Altre voci: <input type="text">
+        </div>
+
+        <div class="campo" style="margin-top: 30px; text-align: center;">
+            <p style="margin-bottom: 10px; font-style: italic;">
+                Per inviare il verbale via email:
+                1. Clicca "Stampa PDF" e salva il documento
+                2. Clicca "Componi Email" e allega il PDF salvato
+            </p>
+            
+            <button onclick="stampaPDF()" style="
+                padding: 10px 20px;
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                margin-right: 10px;
+            ">
+                1. Stampa PDF
+            </button>
+            
+            <button onclick="componiEmail()" style="
+                padding: 10px 20px;
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            ">
+                2. Componi Email
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Registra il service worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('ServiceWorker registrato');
+                    })
+                    .catch(err => {
+                        console.log('ServiceWorker non registrato: ', err);
+                    });
+            });
+        }
+
+        function verificaPassword() {
+            const password = document.getElementById('passwordInput').value;
+            const firmaInput = document.getElementById('firmaInput');
+            const passwordInput = document.getElementById('passwordInput');
+            
+            if (password === "frima operatore") {
+                firmaInput.style.display = "block";
+                passwordInput.style.display = "none";
+                document.querySelector('button').style.display = "none";
+            } else {
+                alert("Password non corretta!");
+            }
+        }
+
+        function inviaEmail(event) {
+            event.preventDefault();
+            
+            // Raccogli tutti i valori dal form
+            const dati = {
+                testata: document.querySelector('h2 input').value,
+                operatoreEconomico: document.querySelector('.campo input').value,
+                nRich: document.querySelectorAll('.campo input')[1].value,
+                convenz: document.querySelectorAll('.campo input')[2].value,
+                dataAttivazione: document.querySelectorAll('.campo input')[3].value,
+                luogo: document.querySelectorAll('.campo input')[4].value,
+                orarioInizio: document.querySelectorAll('.campo input')[5].value,
+                orarioFine: document.querySelectorAll('.campo input')[6].value,
+                operatoreRipresa: document.querySelector('.campo select').value,
+                specializzatoRipresa: document.querySelectorAll('.campo input')[7].value,
+                terzoAssistente: document.querySelectorAll('.campo input')[8].value,
+                firma: document.getElementById('firmaInput').value,
+                estensioneServizio: document.querySelectorAll('.campo input')[9].value,
+                sistemaTrasmissione: document.querySelectorAll('.campo input')[10].value,
+                dotazioniExtra: document.querySelectorAll('.campo input')[11].value,
+                serviziExtra: document.querySelectorAll('.campo input')[12].value,
+                altreVoci: document.querySelectorAll('.campo input')[13].value
+            };
+
+            // Raccogli i valori delle checkbox
+            const tipo1 = document.getElementById('tipo1').checked ? 'Sì' : 'No';
+            const tipo2 = document.getElementById('tipo2').checked ? 'Sì' : 'No';
+            const ridotto = document.getElementById('ridotto').checked ? 'Sì' : 'No';
+
+            // Crea il corpo dell'email formattato
+            const emailBody = `
+VERBALE TROUPE ENG
+
+TESTATA: ${dati.testata}
+Operatore Economico: ${dati.operatoreEconomico}
+N.Rich: ${dati.nRich}
+Convenz: ${dati.convenz}
+
+DATA ATTIVAZIONE TROUPE ENG: ${dati.dataAttivazione}
+LUOGO: ${dati.luogo}
+ORARIO INIZIO: ${dati.orarioInizio}
+ORARIO FINE: ${dati.orarioFine}
+
+Nominativo e Firma:
+Operatore Ripresa: ${dati.operatoreRipresa}
+Specializzato di Ripresa: ${dati.specializzatoRipresa}
+Terzo assistente: ${dati.terzoAssistente}
+
+Tipologia Attivazione:
+- Tipo 1: ${tipo1}
+- Tipo 2: ${tipo2}
+- Ridotto (1/2 troupe): ${ridotto}
+
+Firma Operatore: ${dati.firma}
+
+Estensione del servizio, figure, servizi e dotazioni aggiuntive:
+Estensione del servizio n.ore: ${dati.estensioneServizio}
+Sistema di Trasmissione HSPA/LTE: ${dati.sistemaTrasmissione}
+Dotazioni extra: ${dati.dotazioniExtra}
+Servizi extra: ${dati.serviziExtra}
+Altre voci: ${dati.altreVoci}`;
+
+            // Ottieni l'email del destinatario
+            const emailDestinatario = document.getElementById('emailDestinatario').value;
+
+            // Apri il client email predefinito con i dati precompilati
+            const mailtoLink = `mailto:${emailDestinatario}?subject=Verbale Troupe ENG&body=${encodeURIComponent(emailBody)}`;
+            window.location.href = mailtoLink;
+        }
+
+        function stampaPDF() {
+            // Nascondi temporaneamente i pulsanti di stampa e invio
+            const buttonsContainer = document.querySelector('.campo[style*="text-align: center"]');
+            const originalDisplay = buttonsContainer.style.display;
+            buttonsContainer.style.display = 'none';
+            
+            // Stampa la pagina
+            window.print();
+            
+            // Ripristina i pulsanti dopo la stampa
+            setTimeout(() => {
+                buttonsContainer.style.display = originalDisplay;
+            }, 1000);
+        }
+
+        function componiEmail() {
+            const emailBody = `
+Per favore, allega il PDF del verbale appena salvato a questa email.
+
+PROMEMORIA DATI VERBALE:
+------------------------`;
+            
+            window.location.href = `mailto:?subject=Verbale Troupe ENG&body=${encodeURIComponent(emailBody)}`;
+        }
+    </script>
+</body>
+</html> 
